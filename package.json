@@ -1,0 +1,22 @@
+{
+  "name": "openai-usage-monitor",
+  "version": "1.0.0",
+  "description": "OpenAI API Usage Monitor Dashboard",
+  "main": "index.js",
+  "scripts": {
+    "dev": "node server.js",
+    "build": "echo 'Static files ready'",
+    "start": "node server.js"
+  },
+  "dependencies": {
+    "chart.js": "^4.4.0",
+    "chartjs-adapter-date-fns": "^3.0.0",
+    "date-fns": "^2.30.0"
+  },
+  "engines": {
+    "node": ">=18"
+  },
+  "keywords": ["openai", "api", "usage", "monitor", "dashboard"],
+  "author": "OpenAI Usage Monitor",
+  "license": "MIT"
+} 
