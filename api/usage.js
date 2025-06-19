@@ -41,11 +41,19 @@ export default async function handler(req, res) {
     'gpt-4o-mini-2024-07-18', 'o1-mini-2024-09-12', 'gpt-4.1-mini-2025-04-14'
   ]);
 
+  // 付费模型 (不在免费试用范围内)
+  const PAID_MODELS = new Set([
+    'o3-pro', 'o3-pro-2025-06-10'
+  ]);
+
   // 模型分类函数
   function isHighTierModel(model) {
     if (!model) return false;
     
     const modelLower = model.toLowerCase();
+    
+    // 排除付费模型
+    if (PAID_MODELS.has(model) || modelLower.startsWith('o3-pro')) return false;
     
     // 精确匹配
     if (HIGH_TIER_MODELS.has(model)) return true;
@@ -79,7 +87,22 @@ export default async function handler(req, res) {
     return false;
   }
 
+  function isPaidModel(model) {
+    if (!model) return false;
+    
+    const modelLower = model.toLowerCase();
+    
+    // 精确匹配
+    if (PAID_MODELS.has(model)) return true;
+    
+    // 模式匹配 - o3-pro 开头的都是付费模型
+    if (modelLower.startsWith('o3-pro')) return true;
+    
+    return false;
+  }
+
   function getModelTier(model) {
+    if (isPaidModel(model)) return '付费模型';
     if (isHighTierModel(model)) return '高级模型';
     if (isBasicTierModel(model)) return '基础模型';
     return '未知分类';

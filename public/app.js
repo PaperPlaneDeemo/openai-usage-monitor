@@ -279,7 +279,8 @@ function updateModelDetails(modelDetails) {
     
     for (const [model, details] of sortedModels) {
         const tierClass = details.tier === '高级模型' ? 'text-danger' : 
-                         details.tier === '基础模型' ? 'text-info' : 'text-warning';
+                         details.tier === '基础模型' ? 'text-info' :
+                         details.tier === '付费模型' ? 'text-paid' : 'text-muted';
         
         html += `<tr>
             <td title="${model}">${truncateText(model, 20)}</td>
